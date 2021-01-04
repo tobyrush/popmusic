@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,400;0,600;1,400&display=swap');
+
+body {
+	font-family: 'Fira Sans Extra Condensed';
+}
+
+#header {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 10vh;
+}
+
+#title {
+	margin: 2vh 2vh;
+	font-size: 4vh;
+}
+
+#search {
+	position: absolute;
+	top: 10vh;
+	left: 0;
+	right: 0;
+	height: 10vh;
+	background-color: darkgrey;
+}
+
+#searchfield {
+	font-size: 3vh;
+	font-family: 'Fira Sans Extra Condensed';
+	width: 80vw;
+	margin-top: 2.7vh;
+	margin-left: 2vw;
+	margin-right: 2vw;
+}
+
+#searchbutton {
+	margin: 2vh 0 2vh 0;
+	font-size: 3vh;
+	font-family: 'Fira Sans Extra Condensed';
+	width: 12vw;
+}
+
+#results {
+	position: absolute;
+	top: 20vh;
+	left: 0;
+	right: 0;
+	bottom: 10vh;
+	font-size: 2vh;
+}
+
+#resulttable {
+	width: 100%
+}
+
+#resulttable th {
+	text-align: left;
+	background-color: lightgray;
+	padding-left: 0.5vw;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+}
+
+#resulttable td {
+	padding-left: 0.5vw;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
+	border-bottom: solid 1px lightgray;
+}
+
+#buttons {
+	position: absolute;
+	top: 90vh;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: darkgray;
+}
+
+#csvbutton {
+	margin: 2vh 2vw 0 2vw;
+	font-size: 3vh;
+	font-family: 'Fira Sans Extra Condensed';
+	width: 21vw;
+}
+
+#import {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 10vh;
+	bottom: 0;
+}
+
+.importblock {
+	border: solid 1vh lightgray;
+	margin: 4px;
+}
+
+.blocktitle {
+	height: 3vh;
+	font-size: 3vh;
+	font-weight: bold;
+	background-color: lightgray;
+}
+
+.blockdescription {
+	padding-top: 1vh;
+	background-color: lightgray;
+	padding-bottom: 1vh;
+	font-style: italic;
+}
+
+#import label {
+	padding: 2vh;
+	line-height: 5vh;
+}
+
+#import button {
+	
+}
+
+#import input[type=file] {
+	
+}
+
+#import progress {
+	display: none;
+}
