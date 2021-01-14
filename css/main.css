@@ -129,3 +129,53 @@ body {
 #import progress {
 	display: none;
 }
+
+.tabledesc {
+	border: solid 1px black;
+	margin: 1.5em 0.5em;
+}
+
+.tabledesc h3 {
+	background-color: royalblue;
+	color: white;
+	margin: 0;
+	padding: 0.5em;
+}
+
+.tabledesc h4 {
+	padding: 0.5em;
+	margin: 0;
+	color: gray;
+}
+
+.tabledesc .desc {
+	margin: 0;
+	border-bottom: solid 1px royalblue;
+	padding: 0.5em;
+}
+
+.tabledesc ul {
+	margin: 0;
+	padding: 0;
+}
+
+.tabledesc li {
+	display: block;
+	padding: 0.5em;
+	border-top: solid 1px gray;
+	border-left: solid 1em gray;
+}
+
+.tabledesc .notes {
+	padding: 0.5em;
+	margin: 0;
+	border-top: solid 1px gray;
+	background-color: lightgray;
+	color: black;
+}
+
+.tabledesc li b {
+	color: royalblue;
+}
+
+	

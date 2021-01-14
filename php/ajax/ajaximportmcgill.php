@@ -46,13 +46,13 @@ if ( 0 < $_FILES['file']['error']) {
 			// }
 			$songIDValues[] = '("' . $ln[0] . '",' . $songID . ',"McGill")';
 			$res = $mysqli->query('DELETE FROM chart_entry WHERE song=' . $songID . ' AND date_of_entry="' . $ln[1] . '" AND chart=' . $chartID);
-			$chartEntryValues[] = '("' . $ln[1] . '",' . $ln[2] . ',' . $ln[3] . ',' . $songID . ',' . $chartID . ')';
+			$chartEntryValues[] = '("' . $ln[1] . '",' . $ln[3] . ',' . $songID . ',' . $chartID . ')';
 			$res = $mysqli->query('DELETE FROM chart_history WHERE song=' . $songID . ' AND chart=' . $chartID);
 			$chartHistoryValues[] = '(' . $ln[6] . ',' . $ln[7] . ',' . $songID . ',' . $chartID . ')';
 		}
 	}
 	$res = $mysqli->query('INSERT INTO song_id (identifier,song,database_name) VALUES ' . implode(",", $songIDValues));
-	$res = $mysqli->query('INSERT INTO chart_entry (date_of_entry,target_rank,actual_rank,song,chart) VALUES ' . implode(",", $chartEntryValues));
+	$res = $mysqli->query('INSERT INTO chart_entry (date_of_entry,rank,song,chart) VALUES ' . implode(",", $chartEntryValues));
 	$res = $mysqli->query('INSERT INTO chart_history (peak_rank,weeks_on_chart,song,chart) VALUES ' . implode(",", array_unique($chartHistoryValues)));
 }
 

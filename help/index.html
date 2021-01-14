@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Popular Music Metacorpus</title>
+		<link href='../css/main.css' rel='stylesheet' type='text/css' />
+	</head>
+	<body>
+		<h1>About this Project</h1>
+		<p>This project is an attempt to create a MySQL-based metacorpus for popular music analysis, combining several existing corpora into a single, searchable database.</p>
+		<p>An instance of this project is available for public perusal at <a href="http://tobyrush.com/popmusic/">http://tobyrush.com/popmusic/</a>.</p>
+		<h2>Database Format</h2>
+		<p>The database is MySQL-based and is diagrammed <a href="diagram.pdf">here</a>. What follows is a description of available tables:</p>
+		
+		<div class="tabledesc">
+			<a name="album">
+				<h3>album</h3>
+			</a>
+			<p class="desc">A album or other recorded collection of songs.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>title</b> (string): the title of the album</li>
+				<li><b>date_released</b> (date): the date which the album was published</li>
+				<li><b>image_url</b> (string): the url of a publicly-available image of the album's cover art</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="album_track">
+				<h3>album_track</h3>
+			</a>
+			<p class="desc">The location of a particular song on a particular album.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>track_number</b> (integer): a number indicating the location of the song on the album</li>
+				<li><b>album</b> (integer): the id of the album in the <a href="#album">album</a> table</li>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="album">
+				<h3>album</h3>
+			</a>
+			<p class="desc">A album or other recorded collection of songs.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>title</b> (string): the title of the album</li>
+				<li><b>date_released</b> (date): the date which the album was published</li>
+				<li><b>image_url</b> (string): the url of a publicly-available image of the album's cover art</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="analyzer">
+				<h3>analyzer</h3>
+			</a>
+			<p class="desc">A person or group providing annotations or analytical data included in the database.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): the name of the analyzer/annotator</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="artist_member">
+				<h3>artist_member</h3>
+			</a>
+			<p class="desc">A person's membership in a performing group.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>artist</b> (integer): the id of the artist in the <a href="#artist">artist</a> table</li>
+				<li><b>person</b> (integer): the id of the person in the <a href="#person">person</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chart">
+				<h3>chart</h3>
+			</a>
+			<p class="desc">A particular chart or ranking system.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): the name of the chart</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chart_entry">
+				<h3>chart_entry</h3>
+			</a>
+			<p class="desc">A song's entry on a specific date in a particular chart.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>date_of_entry</b> (date): the date of this entry on the chart</li>
+				<li><b>rank</b> (integer): the rank of this entry on the chart</li>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+				<li><b>chart</b> (integer): the id of the chart in the <a href="#chart">chart</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+		<a name="chart_history">
+				<h3>chart_history</h3>
+			</a>
+			<p class="desc">A song's history on a particular chart.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>peak_rank</b> (integer): the highest rank achieved by the song on the chart</li>
+				<li><b>week_on_chart</b> (integer): the number of weeks the song appeared on the chart</li>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+				<li><b>chart</b> (integer): the id of the chart in the <a href="#chart">chart</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chord_function">
+				<h3>chord_function</h3>
+			</a>
+			<p class="desc">A chord function in a tonal context.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>roman_numeral</b> (string): the Roman numeral describing the function (see notes below)</li>
+				<li><b>chromatic_root</b> (integer): the function's chromatic scale degree relative to tonic, given as a pitch class integer (tonic=0, supertonic=2, etc.)</li>
+				<li><b>diatonic_root</b> (integer): the function's diatonic scale degree relative to tonic, given as an integer corresponding with the Roman numeral (I=1)</li>
+			</ul>
+			<p class="notes">The roman_numeral column should be written in the following format: {inflection}[degree]{/[secondary area]} where inflection is an optional b or # indicating an altered root, degree is a roman numeral in all caps denoting the functional scale degree, and secondary area is a roman numeral indicating the secondary key area for applied chords. For example: IV for subdominant, bVII for subtonic (cf VII for leading-tone), and V/III for a secondary dominant on the mediant.</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chord_span">
+				<h3>chord_span</h3>
+			</a>
+			<p class="desc">A duration of music which has been analyzed as a particular chord.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>span</b> (integer): the id of the related span in the <a href="#span">span</a> table</li>
+				<li><b>chord_function</b> (integer): the id of the tonal function of the chord in the <a href="#chord_function">chord_function</a> table</li>
+				<li><b>chord_type</b> (integer): the id of the chord type in the <a href="#chord_type">chord_type</a> table</li>
+				<li><b>absolute_root</b> (integer): the root of the chord as a pitch class integer (C=0)</li>
+				<li><b>inversion</b> (integer): the inversion of the chord, given as an integer (root position=0, 1st inversion=1, etc.)</li>
+				<li><b>tonic</b> (integer): the current global tonic which the chord_function is based upon, given as a pitch class integer (C=0)</li>
+			</ul>
+			<p class="notes">Note that a single chord may have multiple analyses, even by the same analyzer, for example in the case of a pivot chord in a common chord modulation where the chord is analyzed in both outgoing and incoming keys.</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chord_symbol">
+				<h3>chord_symbol</h3>
+			</a>
+			<p class="desc">A symbol or suffix indicating a particular chord type.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>symbol</b> (string): the symbol or suffix describing the chord type</li>
+				<li><b>roman_numeral_case</b> (integer): if applicable, the case which a Roman numeral should use to describe this chord (0=lowercase, 1=uppercase, NULL=no case requirement)</li>
+				<li><b>pitch_set</b> (string): the chord members which comprise this chord, given as pitch class integers related to the root of the chord and separated by commas (e.g., 0,4,7 for a major triad)</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="chord_type">
+				<h3>chord_type</h3>
+			</a>
+			<p class="desc">A type of chord.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): the descriptive name of the chord</li>
+				<li><b>roman_numeral_case</b> (integer): if applicable, the case which a Roman numeral should use to describe this chord (0=lowercase, 1=uppercase, NULL=no case requirement)</li>
+				<li><b>chord_type</b> (integer): the id of the chord_type in the <a href="#chord_type">chord_type</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="form_span">
+				<h3>form_span</h3>
+			</a>
+			<p class="desc">A duration of music which has been analyzed to serve as a specific formal element.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>label</b> (integer): a description of the formal element (see notes below)</li>
+				<li><b>span</b> (integer): the id of the span in the <a href="#span">span</a> table</li>
+			</ul>
+			<p class="notes">The label column can be a descriptive element, such as "exposition" or "verse", or an analytical symbol like "A" or "A'"</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="genre">
+				<h3>genre</h3>
+			</a>
+			<p class="desc">A genre of music.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): a description of the genre</li>
+				<li><b>parent_genre</b> (integer): the id of a parent genre in the <a href="#genre">genre</a> table</li>
+			</ul>
+			<p class="notes">The label column can be a descriptive element, such as "exposition" or "verse", or an analytical symbol like "A" or "A'"</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="instrument">
+				<h3>instrument</h3>
+			</a>
+			<p class="desc">An musical instrument (which may include voice).</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): the name of the instrument</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="instrument_span">
+				<h3>instrument_span</h3>
+			</a>
+			<p class="desc">A duration of music which includes a particular instrument.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>role</b> (string): a description of the instrument's role (such as "lead vocal" or "melody"</li>
+				<li><b>span</b> (integer): the id of the span in the <a href="#span">span</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="meter">
+				<h3>meter</h3>
+			</a>
+			<p class="desc">A musical meter.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>top_number</b> (integer): the top number of the time signature for the meter</li>
+				<li><b>bottom_number</b> (integer): the bottom number of the time signature for the meter</li>
+				<li><b>beats</b> (integer): the number of beats present in one measure of the meter</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="meter_span">
+				<h3>meter_span</h3>
+			</a>
+			<p class="desc">A duration of music which has been analyzed to be in a particular meter.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>meter</b> (integer): the id of the meter in the <a href="#meter">meter</a> table</li>
+				<li><b>span</b> (integer): the id of the span in the <a href="#span">span</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="note_span">
+				<h3>note_span</h3>
+			</a>
+			<p class="desc">A duration of music which has been analyzed to contain a single note or tone.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>pitch_class</b> (integer): the pitch class of the note given in integer format (C=0)</li>
+				<li><b>octave</b> (integer): the octave of the note in scientific pitch notation (where octave 4 begins at middle C and continues up a M7 to B)</li>
+				<li><b>instrument</b> (integer): the id of the instrument or role performing the note in the <a href="#note">note</a> table</li>
+				<li><b>span</b> (integer): the id of the span in the <a href="#span">span</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="person">
+				<h3>person</h3>
+			</a>
+			<p class="desc">An individual musician.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>name</b> (string): the name of the musician</li>
+				<li><b>sorting_name</b> (string): the name of the person, formatted for sorting purposes</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="song">
+				<h3>song</h3>
+			</a>
+			<p class="desc">An entry in the song table represents a single musical work, vocal or instrumental.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>title</b> (string): the title of the song</li>
+				<li><b>artist</b> (integer): the id of the artist in the <a href="#artist">artist</a> table</li>
+				<li><b>duration</b> (integer): the length of the song, in seconds and rounded to the nearest second. Generally used to indicate the length of the track, which may include silence before and after the music</li>
+				<li><b>release_date</b> (date): the date which the song was made available to the public in recorded format</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="song_genre">
+				<h3>song_genre</h3>
+			</a>
+			<p class="desc">A song's membership in a particular genre.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+				<li><b>genre</b> (integer): the id of the genre in the <a href="#genre">genre</a> table</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="song_id">
+				<h3>song_id</h3>
+			</a>
+			<p class="desc">A URI or other identifying number attributed to a specific song.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>identifier</b> (string): an identifier, such as a record or catalog number, which represents the song in a particular database</li>
+				<li><b>uri</b> (string): a locator such as a URL which references the song in an online database</li>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+				<li><b>database_name</b> (string): a string descriptor of the database which uses this identifier or uri</li>
+			</ul>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="span">
+				<h3>span</h3>
+			</a>
+			<p class="desc">A section of analyzed music within a song.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>song</b> (integer): the id of the song in the <a href="#song">song</a> table</li>
+				<li><b>start_time</b> (float): the starting time of the span, given in number of seconds since the beginning of the song</li>
+				<li><b>end_time</b> (float): the ending time of the span, given in number of seconds since the beginning of the song</li>
+				<li><b>start_measure</b> (integer): the measure number in which the span begins</li>
+				<li><b>end_measure</b> (integer): the measure number in which the span ends</li>
+				<li><b>start_measure_fraction</b> (float): the location within the measure in which the span begins, given as a fraction of a whole measure regardless of meter</li>
+				<li><b>end_measure_fraction</b> (float): the location within the measure in which the span ends, given as a fraction of a whole measure regardless of meter</li>
+				<li><b>start_beat</b> (float): the location within the measure in which the span begins, given as a number of beats (see below)</li>
+				<li><b>end_beat</b> (float): the location within the measure in which the span ends, given as a fraction of a number of beats (see below)</li>
+				<li><b>name</b> (string): a human-readable description of what the span represents (see notes below)</li>
+				<li><b>analyzer</b> (integer): the id of the analyzer of this span in the <a href="#analyzer">analyzer</a> table</li>
+			</ul>
+			<p class="notes">For start_beat and end_beat, values should be given in beats within the prevailing meter. Thus a span beginning on beat 3 in 3/4 would have a start_beat of 3 but a start_measure_fraction of 0.6667, while a span that starts a sixteenth note prior would have a start beat of 2.75 and a start_measure_fraction of 0.5833.</p>
+			<p class="notes">span entries should always be paired with a more specific type of entry in chord_span, form_span, instrument_span, meter_span, note_span or tonic_span, which references the corresponding span entry. The name column of span is only included here for convenience when viewing the raw data.</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="syllable">
+				<h3>syllable</h3>
+			</a>
+			<p class="desc">A syllable of lyrics in a song.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>word</b> (string): the complete word from which the syllable is drawn, written in all caps with no initiating or terminating punctuation</li>
+				<li><b>syllable_index</b> (integer): the syllable of the word is being referenced, where 1 is the first syllable, 2 is the second syllable, and so on (see notes below)</li>
+				<li><b>note</b> (integer): the id of the note this syllable is sung on in the <a href="#note">note</a> table</li>
+				<li><b>is_melisma</b> (integer): a flag indicating whether or not this entry represents the melismatic continuation of a previous syllable (0 or null=false, 1=true)</li>
+			</ul>
+			<p class="notes">For monosyllabic words, syllable_index should be given as 1.</p>
+		</div>
+		
+		<div class="tabledesc">
+			<a name="tonic_span">
+				<h3>tonic_span</h3>
+			</a>
+			<p class="desc">A duration of music which has been analyzed to be in a particular key area.</p>
+			<h4>Columns</h4>
+			<ul>
+				<li><b>id</b> (integer): a unique identifier assigned by the database</li>
+				<li><b>tonic</b> (integer): the tonic note, given in pitch class integer format (C=0)</li>
+				<li><b>span</b> (integer): the id of the span in the <a href="#span">span</a> table</li>
+			</ul>
+		</div>
+		
+	</body>
+</html>
